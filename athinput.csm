@@ -1,0 +1,98 @@
+<comment>
+problem   = spherical blast wave in spherical coordinates
+reference = Fuller & Tsuna 2024, Tsuna et al 2024
+configure = --prob=inject_wind --coord=spherical_polar -nr_radiation -mpi -hdf5 --hdf5_path=$RCAC_HDF5_ROOT
+
+<job>
+problem_id = csm     # problem ID: basename of output filenames
+
+<output1>
+file_type  = hdf5        # Binary data dump
+variable   = prim       # variables to be output
+dt         = 1.0e-2       # time increment between outputs
+#num_ghost  = 1
+
+#<output2>
+#file_type = hdf5
+#variable = uov
+#dt = 1.0e-1
+
+<output3>
+file_type  = rst      # history
+dt         = 1.0      # time increment between outputs
+
+<output4>
+file_type  = hst
+dt         = 1.0e-2
+
+<time>
+cfl_number = 0.3      # The Courant, Friedrichs, & Lewy (CFL) Number
+nlim       = -1       # cycle limit
+tlim       = 1.0     # time limit
+
+<mesh>
+nx1        = 3200                      # Number of zones in X1-direction
+x1rat      = 1.0010579220496791        # ratio between adjacent cell sizes
+x1min      = 10.0429                   # minimum value of X1
+x1max      = 296.02                   # maximum value of X1
+ix1_bc     = outflow #user                   # inner-X1 boundary flag
+ox1_bc     = outflow #user                    # outer-X1 boundary flag
+
+nx2        = 1                      # Number of zones in X2-direction
+x2min      = 0                       # minimum value of X2
+x2max      = 3.141592653589793       # maximum value of X2
+ix2_bc     = periodic                   # inner-X2 boundary flag
+ox2_bc     = periodic                   # outer-X2 boundary flag
+
+nx3        =  1                      # Number of zones in X3-direction
+x3min      =  0.0       	      # minimum value of X3
+x3max      =  6.283185307179586       # maximum value of X3
+ix3_bc     = periodic                 # inner-X3 boundary flag
+ox3_bc     = periodic                 # outer-X3 boundary flag
+
+#refinement     = adaptive
+numlevel       = 3
+derefine_count = 3
+
+<meshblock>
+nx1        = 160         # Number of zones per MeshBlock in X1-direction
+nx2        = 1          # Number of zones per MeshBlock in X2-direction
+nx3        = 1         # Number of zones per MeshBlock in X3-direction
+
+<hydro>
+gamma           = 1.6666666666666667  # gamma = C_p/C_v
+dfloor = 1.0e-9
+pfloor = 1.0e-12
+rho_init = 1.0e-8
+press_init = 1.0e-8
+
+<radiation>
+nmu = 4
+n_frequency = 1
+prat = 5.499119e+02
+crat = 8.082444e+03
+T_unit = 1.0e5
+density_unit = 1.0e-10
+length_unit = 1.0e12
+tfloor = 1.0e-4
+Compton = 1
+Planck = 1
+
+<problem>
+kappa_es        = 0.34
+temp_unit       = 1.0e5
+l_unit          = 1.0e12
+rho_unit        = 1.0e-10
+mass_bottom_cgs = 1.32125e+34
+#E_inj           = 1.0e48
+#input_filename  = init_prim.hdf5
+#final_energy = 1.0e49
+#inj_tstart = 0.0
+#inj_tend = 77579.8626
+#inj_mass_spread = 1.9891e32 #0.1msun
+#inj_start_point = 1
+#mass_smooth_flag = 1
+#Rt = 100.0
+#Rm = 100.0
+
+ 
