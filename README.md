@@ -16,4 +16,5 @@ coordinate. This implementation will not work with AMR.
 
 --------
 The athinput.csm is an example input file
+The /plot directory has a python script wind_unit calculate physical unit, radiation simulation cannot rescale to arbitrary unit.
 
